@@ -11,14 +11,29 @@ import {
   REGISTER,
 } from "redux-persist";
 
-// import { newsReducer } from "./news";
+import { tracksReducer } from "./tracks";
 
-export const store = configureStore({
+const persistSession = {
+  key: "session",
+  storage,
+  whitelist: ["data"],
+};
+
+const store = configureStore({
   reducer: {
-    // news: newsReducer,
+    tracks: persistReducer(persistSession, tracksReducer),
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }),
   devTools: process.env.NODE_ENV === "development",
 });
+
+const persistedStore = persistStore(store);
+export { store, persistedStore };
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
