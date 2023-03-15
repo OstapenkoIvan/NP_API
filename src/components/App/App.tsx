@@ -22,6 +22,7 @@ function App() {
           flexDirection: "column",
           alignItems: "center",
           minWidth: 300,
+          pb: 2,
         }}
       >
         <ListToggle onChange={setPage} {...{ page }} />
