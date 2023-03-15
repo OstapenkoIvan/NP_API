@@ -1,16 +1,48 @@
-import * as React from "react";
+import { useState } from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
+import { useAppDispatch } from "../../hooks/redux";
+import { addTrack, fetchTracks } from "../../store/tracks";
 
 export default function InputField() {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+  const dispatch = useAppDispatch();
+  const [trackNumber, setTrackNumber] = useState("");
+  const [trackError, setTrackError] = useState(false);
+  const [trackLabel, setTrackLabel] = useState("Tracking number");
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (trackNumber.length < 14) {
+      setTrackError(true);
+      setTrackLabel("Number should be 14 characters long");
+      return;
+    }
+    await dispatch(addTrack({ number: String(trackNumber) }));
+    await dispatch(fetchTracks());
+  };
+
+  const handleChangle = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    const parsedInt = parseInt(value);
+
+    if (Number.isFinite(parsedInt)) {
+      const res = String(parsedInt);
+      if (res.length > 14) {
+        return;
+      }
+      if (trackError) {
+        setTrackError(false);
+      }
+      if (trackLabel !== "Tracking number") {
+        setTrackLabel("Tracking number");
+      }
+      setTrackNumber(String(parsedInt));
+    }
+
+    if (value === "") {
+      setTrackNumber("");
+    }
   };
 
   return (
@@ -20,10 +52,12 @@ export default function InputField() {
       noValidate
       autoComplete="off"
       sx={{
-        mt: 1,
         width: "100%",
+        maxWidth: { xs: 480, sm: 1280 },
+        minWidth: 300,
+        marginY: 2,
         display: "flex",
-        flexDirection: "row",
+        flexDirection: { xs: "column", sm: "row" },
         alignItems: "center",
         justifyContent: "center",
         gap: 2,
@@ -33,17 +67,24 @@ export default function InputField() {
         margin="normal"
         size="small"
         required
-        error={false}
+        error={trackError}
         id="ttn"
-        label="tracking number"
+        label={trackLabel}
         name="ttn"
         autoFocus
-        sx={{ width: 400 }}
+        value={trackNumber}
+        onChange={handleChangle}
+        sx={{
+          flexGrow: 1,
+          width: "100%",
+          maxWidth: { xs: 480, sm: 600 },
+          marginY: { xs: 0 },
+        }}
       />
       <Button
         type="submit"
         variant="contained"
-        sx={{ mt: 3, mb: 2, width: 200 }}
+        sx={{ marginY: 0, width: 200, flexShrink: 0 }}
       >
         Get status TTN
       </Button>
