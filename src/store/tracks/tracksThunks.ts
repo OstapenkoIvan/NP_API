@@ -2,17 +2,16 @@ import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { ITracksState } from "../../types/np.types";
 
-const BASE_URL = "http://localhost:3000/api/tracking";
+const BASE_URL = "http://localhost:4200/api/tracking";
 
 export const addTrack = createAsyncThunk(
   "tracks/addTrack",
-  async (searchQuery, { rejectWithValue }) => {
+  async (searchQuery: object, { rejectWithValue }) => {
     try {
       const { data } = await axios.post<{ data: ITracksState }>(
         BASE_URL,
         searchQuery
       );
-      console.log("post response", data);
 
       return data;
     } catch (e) {
@@ -22,11 +21,10 @@ export const addTrack = createAsyncThunk(
 );
 
 export const fetchTracks = createAsyncThunk(
-  "tracks/getAll",
+  "tracks/fetchTracks",
   async (_, { rejectWithValue }) => {
     try {
       const { data } = await axios.get<{ data: ITracksState[] }>(BASE_URL);
-      console.log("get response", data);
 
       return data;
     } catch (e) {

@@ -1,9 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchTracks, addTrack } from "./tracksThunks";
-import { IInitialTracksState } from "./../../types/np.types";
+import { IInitialTracksState, ITracksState } from "./../../types/np.types";
 
 export const tracksInitialState: IInitialTracksState = {
   data: [],
+  current: {},
   isLoading: "idle",
   error: null,
 };
@@ -11,7 +12,12 @@ export const tracksInitialState: IInitialTracksState = {
 const tracksSlice = createSlice({
   name: "tracks",
   initialState: tracksInitialState,
-  reducers: {},
+  reducers: {
+    showSelected(state, { payload }) {
+      const current = state.data.find((item) => item.Number === payload);
+      state.current = current as ITracksState;
+    },
+  },
 
   extraReducers: (builder) => {
     builder
@@ -32,7 +38,8 @@ const tracksSlice = createSlice({
         state.isLoading = "pending";
       })
       .addCase(addTrack.fulfilled, (state, { payload }) => {
-        state.data = [payload.data, ...state.data];
+        // state.data = [payload.data, ...state.data];
+        state.current = payload.data;
         state.isLoading = "succeeded";
         state.error = null;
       })
@@ -43,4 +50,5 @@ const tracksSlice = createSlice({
   },
 });
 
+export const { showSelected } = tracksSlice.actions;
 export const tracksReducer = tracksSlice.reducer;

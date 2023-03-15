@@ -12,6 +12,8 @@ import {
 } from "redux-persist";
 
 import { tracksReducer } from "./tracks";
+import { warehousesReducer } from "./warehouses";
+import { IInitialTracksState } from "../types/np.types";
 
 const persistSession = {
   key: "session",
@@ -21,7 +23,11 @@ const persistSession = {
 
 const store = configureStore({
   reducer: {
-    tracks: persistReducer(persistSession, tracksReducer),
+    tracks: persistReducer<IInitialTracksState, any>(
+      persistSession,
+      tracksReducer
+    ),
+    warehouses: warehousesReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

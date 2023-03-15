@@ -1,4 +1,5 @@
-import { IInitialTracksState } from "./../../types/np.types";
+import { RootState } from "./../index";
 
-export const tracksSelector = (state: IInitialTracksState) => state.data;
-export const lastTrackSelector = (state: IInitialTracksState) => state.data[0];
+export const tracksSelector = (state: RootState) => state.tracks.data;
+export const lastTrackSelector = (state: RootState) => state.tracks.data[0];
+export const currentTrackSelector = (state: RootState) => state.tracks.current;

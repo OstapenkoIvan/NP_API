@@ -1,3 +1,7 @@
-export { tracksReducer } from "./tracksSlice";
-export { tracksSelector, lastTrackSelector } from "./tracksSelectors";
+export { tracksReducer, showSelected } from "./tracksSlice";
+export {
+  tracksSelector,
+  lastTrackSelector,
+  currentTrackSelector,
+} from "./tracksSelectors";
 export { addTrack, fetchTracks } from "./tracksThunks";
