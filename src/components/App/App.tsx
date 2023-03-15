@@ -11,7 +11,6 @@ import "./App.css";
 
 function App() {
   const [page, setPage] = useState("tracking");
-  console.log(page);
 
   return (
     <Container component="main" maxWidth="lg">
