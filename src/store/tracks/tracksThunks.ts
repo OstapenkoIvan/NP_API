@@ -2,7 +2,7 @@ import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { ITracksState } from "../../types/np.types";
 
-const BASE_URL = "http://localhost:4200/api/tracking";
+const BASE_URL = "https://np-api-be-ostapenkoivan.vercel.app/api/tracking";
 
 export const addTrack = createAsyncThunk(
   "tracks/addTrack",

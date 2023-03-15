@@ -20,6 +20,7 @@ export default function InputField() {
     }
     await dispatch(addTrack({ number: String(trackNumber) }));
     await dispatch(fetchTracks());
+    setTrackNumber("");
   };
 
   const handleChangle = (e: React.ChangeEvent<HTMLInputElement>) => {

@@ -2,7 +2,7 @@ import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { IWhState } from "../../types/np.types";
 
-const BASE_URL = "http://localhost:4200/api/warehouses";
+const BASE_URL = "https://np-api-be-ostapenkoivan.vercel.app/api/warehouses";
 
 export const getWarehouseQuery = createAsyncThunk(
   "warehouses/getWarehouseQuery",

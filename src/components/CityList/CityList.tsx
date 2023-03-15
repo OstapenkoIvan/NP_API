@@ -27,6 +27,7 @@ export default function CityList() {
 
   useEffect(() => {
     dispatch(getWarehouseQuery({ queryData: debouncedValue, page }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, debouncedValue]);
 
   const warehouseList = useAppSelector(warehousesSelector);
@@ -46,6 +47,7 @@ export default function CityList() {
   return (
     <Box
       sx={{
+        mt: 2,
         flexShrink: 0,
         width: { xs: "100%", sm: 310 },
         minWidth: 300,

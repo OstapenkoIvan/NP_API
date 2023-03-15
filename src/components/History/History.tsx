@@ -28,6 +28,7 @@ export default function History() {
   return (
     <Box
       sx={{
+        display: trackList.length > 0 ? "block" : "none",
         flexShrink: 0,
         width: { xs: "100%", sm: isCurrent ? 200 : 310 },
         borderColor: cyan[400],
