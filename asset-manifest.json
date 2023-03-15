@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/np_api_fe/static/css/main.073c9b0a.css",
+    "main.js": "/np_api_fe/static/js/main.d624df7b.js",
+    "index.html": "/np_api_fe/index.html",
+    "main.073c9b0a.css.map": "/np_api_fe/static/css/main.073c9b0a.css.map",
+    "main.d624df7b.js.map": "/np_api_fe/static/js/main.d624df7b.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.073c9b0a.css",
+    "static/js/main.d624df7b.js"
+  ]
+}
